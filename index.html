@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Loot Goblins | Dungeon Looting on Solana Seeker</title>
+    <meta name="description"
+        content="Loot Goblins is a multiplayer dungeon-looting game for the Solana Seeker phone. You and a bunch of goblins, dwarves, and misfits all racing through the same dungeon, grabbing treasure, fighting monsters, and probably backstabbing each other.">
+    <meta name="theme-color" content="#1a0e2e">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="Assets/favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="Assets/favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="Assets/favicon_io/favicon-16x16.png">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Loot Goblins">
+    <meta property="og:description"
+        content="Multiplayer dungeon looting on the Solana Seeker phone. Grab treasure, fight monsters, backstab your friends.">
+    <meta property="og:image" content="Assets/Images/splash_portrait.png">
+    <meta property="og:type" content="website">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=MedievalSharp&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Particle canvas for floating gold specks -->
+    <canvas id="particles"></canvas>
+
+    <!-- Floating loot items that drift across the page -->
+    <div id="floating-loot" aria-hidden="true"></div>
+
+    <!-- ===== HERO SECTION ===== -->
+    <section id="hero">
+        <div class="hero-bg-overlay"></div>
+        <div class="hero-content">
+            <img src="Assets/Images/name_logo_main_detailed.png" alt="Loot Goblins Logo" class="hero-logo"
+                id="hero-logo">
+            <p class="hero-tagline" id="hero-tagline">
+                Multiplayer dungeon looting. It gets messy.<br>
+                <span class="tagline-highlight">Grab loot. Fight stuff. Betray your friends.</span>
+            </p>
+
+            <div class="hero-cta-row" id="hero-cta">
+                <a href="https://github.com/kikidesigns/LootGoblins/releases/latest/download/LootGoblins.apk"
+                    class="btn btn-primary" id="btn-download">
+                    <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                        <polyline points="7 10 12 15 17 10" />
+                        <line x1="12" y1="15" x2="12" y2="3" />
+                    </svg>
+                    Download APK
+                </a>
+                <a href="https://github.com/kikidesigns/LootGoblins" target="_blank" rel="noopener"
+                    class="btn btn-secondary" id="btn-github">
+                    <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                    </svg>
+                    GitHub
+                </a>
+            </div>
+
+            <div class="hero-badge" id="hero-badge">
+                <img src="Assets/Images/solana_logo.png" alt="Solana" class="solana-logo-inline">
+                <span><strong>Solana Seeker</strong> &middot; MONOLITH Hackathon project</span>
+            </div>
+        </div>
+
+        <!-- Scroll indicator -->
+        <div class="scroll-indicator" id="scroll-indicator">
+            <span>Keep scrolling</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="6 9 12 15 18 9" />
+            </svg>
+        </div>
+    </section>
+
+    <!-- ===== SHOWCASE SECTION ===== -->
+    <section id="showcase">
+        <div class="section-inner">
+            <h2 class="section-title reveal-up">
+                <img src="Assets/Images/crossed_swords_graphic_pixel_art.png" alt="" class="title-icon">
+                How It Works
+                <img src="Assets/Images/crossed_swords_graphic_pixel_art.png" alt="" class="title-icon flipped">
+            </h2>
+            <p class="section-subtitle reveal-up">
+                You and a bunch of other players drop into a procedurally generated dungeon. Loot treasure, fight
+                monsters, backstab your rivals. Items and loot are Solana assets you actually own.
+            </p>
+            <div class="showcase-grid">
+                <div class="showcase-card reveal-up" id="card-splash">
+                    <img src="Assets/Images/splash_portrait.png"
+                        alt="Loot Goblins gameplay - goblins and dwarves fighting over treasure in a dungeon"
+                        class="showcase-img">
+                    <div class="showcase-card-glow"></div>
+                </div>
+                <div class="showcase-features">
+                    <div class="feature-item reveal-left" style="--delay: 0.1s">
+                        <div class="feature-icon-wrap">
+                            <img src="Assets/Images/coinsandbars/gold_coin_pile_r1_c3.png" alt=""
+                                class="feature-icon-img">
+                        </div>
+                        <div>
+                            <h3>Loot Everything</h3>
+                            <p>Gold, gems, weapons, potions. If it fits in your bag, grab it. Bag's full? Get a bigger
+                                bag.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item reveal-left" style="--delay: 0.25s">
+                        <div class="feature-icon-wrap">
+                            <img src="Assets/Images/skeleton_monster.png" alt="" class="feature-icon-img">
+                        </div>
+                        <div>
+                            <h3>Fight Monsters</h3>
+                            <p>Skeletons, mimics, and worse. Beat them for rare drops, or just wait for someone else to
+                                do the hard work and steal their loot.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item reveal-left" style="--delay: 0.4s">
+                        <div class="feature-icon-wrap">
+                            <img src="Assets/Images/mimic_chest_monster.png" alt="" class="feature-icon-img">
+                        </div>
+                        <div>
+                            <h3>Trust No One</h3>
+                            <p>That chest might be a mimic. That "ally" is definitely going to stab you. Paranoia is
+                                a core feature, honestly.</p>
+                        </div>
+                    </div>
+                    <div class="feature-item reveal-left" style="--delay: 0.55s">
+                        <div class="feature-icon-wrap">
+                            <img src="Assets/Images/items/bronze_pickaxe_r1_c1.png" alt="" class="feature-icon-img">
+                        </div>
+                        <div>
+                            <h3>On-Chain Loot</h3>
+                            <p>Every piece of treasure is a real Solana asset. Trade it, hoard it, flex on your friends.
+                                Your loot, your wallet.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== GAMEPLAY SECTION ===== -->
+    <section id="gameplay">
+        <div class="section-inner">
+            <h2 class="section-title reveal-up">
+                <img src="Assets/Images/applogo.png" alt="" class="title-icon skull-icon">
+                What It Looks Like
+            </h2>
+            <p class="section-subtitle reveal-up">
+                Every run generates a fresh dungeon. Everyone's in it at the same time. Way too many goblins, never
+                enough loot.
+            </p>
+            <div class="gameplay-preview reveal-up">
+                <div class="dungeon-frame">
+                    <img src="Assets/Images/ingame_dungeon_room.png" alt="In-game dungeon room view"
+                        class="dungeon-img">
+                    <div class="dungeon-scanline"></div>
+                    <div class="dungeon-corner tl"></div>
+                    <div class="dungeon-corner tr"></div>
+                    <div class="dungeon-corner bl"></div>
+                    <div class="dungeon-corner br"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== BOTTOM CTA ===== -->
+    <section id="bottom-cta">
+        <div class="section-inner">
+            <img src="Assets/Images/name_logo_main_minimal.png" alt="Loot Goblins" class="bottom-logo reveal-up">
+            <p class="bottom-text reveal-up">Wanna try it?</p>
+            <div class="hero-cta-row reveal-up">
+                <a href="https://github.com/kikidesigns/LootGoblins/releases/latest/download/LootGoblins.apk"
+                    class="btn btn-primary" id="btn-download-bottom">
+                    <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                        <polyline points="7 10 12 15 17 10" />
+                        <line x1="12" y1="15" x2="12" y2="3" />
+                    </svg>
+                    Download APK
+                </a>
+                <a href="https://github.com/kikidesigns/LootGoblins" target="_blank" rel="noopener"
+                    class="btn btn-secondary" id="btn-github-bottom">
+                    <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                    </svg>
+                    View on GitHub
+                </a>
+            </div>
+            <div class="hero-badge reveal-up" style="margin-top: 1.5rem;">
+                <img src="Assets/Images/solana_logo.png" alt="Solana" class="solana-logo-inline">
+                <span>Runs on <strong>Solana</strong> &middot; Built for <strong>Seeker</strong></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer id="footer">
+        <p>&copy; 2025 Loot Goblins &middot; Built during the MONOLITH Hackathon</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
