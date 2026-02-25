@@ -609,9 +609,7 @@ a {
 }
 
 /* ---------- DEMO VIDEO SECTION ---------- */
-#demo-video {
-    position: relative;
-    z-index: 2;
+#gameplay {
     background:
         linear-gradient(180deg, var(--bg-deep) 0%, var(--bg-dark) 50%, var(--bg-deep) 100%);
 }
