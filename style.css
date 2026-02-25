@@ -616,7 +616,7 @@ a {
 
 .video-frame-wrap {
     margin: 0 auto 1.5rem;
-    max-width: 520px;
+    max-width: 680px;
 }
 
 .video-frame {
@@ -634,7 +634,7 @@ a {
     position: absolute;
     top: 0;
     left: 50%;
-    width: 177.78%;
+    width: 135%;
     height: 100%;
     transform: translateX(-50%);
     border: 0;
